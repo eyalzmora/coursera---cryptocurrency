@@ -58,18 +58,20 @@ public class TxHandler
         	if(uniqueUtxos.contains(utxo) == true)//UTXO is claimed twice in the same transaction
         		return false;
         	uniqueUtxos.addUTXO(utxo, output);
-        	
-        	/* (4) */
-        	if(output.value < 0)
-        		return false;
-        	
-        	totalInValue += output.value;
-        	
+        	        	
+        	totalInValue += output.value;        	
         }
     		
         for(Transaction.Output out : tx.getOutputs())
-        	totalOutValue =+ out.value;
+        {
+        	/* (4) */
+        	if(out.value < 0)
+        		return false;
+        	
+        	totalOutValue += out.value;
+        }
     	
+        /* (5) */
         if(totalInValue < totalOutValue)
         	return false;
         
