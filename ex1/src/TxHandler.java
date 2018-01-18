@@ -101,7 +101,9 @@ public class TxHandler
     			
     			for(int i=0;i<tx.numOutputs();i++)
     			{
-    				Transaction.Output out = tx.getOutput(i);    				
+    				Transaction.Output out = tx.getOutput(i); 
+    				UTXO utxo = new UTXO(tx.getHash(), i);
+    				utxoPool.addUTXO(utxo, out);
     			}    			
     		}    			
     	}
